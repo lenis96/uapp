@@ -26,7 +26,7 @@
 <script>
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
-// import router from '../router'
+import router from '../router'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -49,7 +49,7 @@ export default {
       console.log('login',this.username,this.password)
       this.$store.dispatch('users/authenticateUser',{username:this.username,password:this.password})
       setTimeout(()=>{
-        console.log('NNNNNN2',this.token)
+        console.log('NNNNNN2',this.user)
         this.$store.dispatch('asignatures/getAsignatures')
 
       },2000)
@@ -57,12 +57,16 @@ export default {
     }
   },
   computed: mapState({
-    token: state => state.users
+    user: state => state.users
   }),
   created () {
-    console.log('LALAL',this.token)
+    console.log('LALAL',this.user)
+    if(this.user.token){
+      router.push('/profile/')
+
+    }
     console.log('ALAL',this.username,this.password)
-      console.log('NNNNNN',this.token)
+      console.log('NNNNNN',this.user)
   }
 }
 </script>
